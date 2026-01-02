@@ -1,11 +1,8 @@
-Flask==2.3.3
-Flask-SQLAlchemy==3.0.5
-Werkzeug==2.3.7
-python-dotenv==1.0.0
-Pillow==10.1.0
-
-# Azure dependencies (will be used when deploying to Azure)
-pyodbc==4.0.39
-azure-storage-blob==12.19.0
-azure-keyvault-secrets==4.7.0
-azure-identity==1.15.0
+# Root requirements.txt - Project structure reorganized
+# 
+# Server dependencies are now located in: src/server/requirements.txt
+# Client dependencies will be managed separately:
+# - src/client/web/ (React frontend - package.json)  
+# - src/client/mobile/ (React Native app - package.json)
+#
+# This file is kept for legacy compatibility and project overview

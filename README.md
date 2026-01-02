@@ -1,101 +1,99 @@
 # IdeaCheck
-IdeaCheck is a lightweight tool that helps you validate product ideas quickly and effortlessly.
 
-## Features
-- Create product items with descriptions and poster images
-- Generate unique checklinks for data collection
-- Collect user email addresses through simple forms
-- Admin dashboard for managing products and viewing responses
-- Support for both local development and Azure deployment
+IdeaCheck is a lightweight product validation platform that helps entrepreneurs and product managers quickly validate product ideas by collecting user feedback through unique trackable links.
+
+## Overview
+
+IdeaCheck provides a simple yet powerful solution for product validation:
+
+- **Product Owners** can create and manage product concepts, generate unique checklinks for distribution, and collect valuable user feedback
+- **Users** can easily view products and provide feedback through simple, accessible interfaces
+- **Analytics** help product owners understand user engagement and make data-driven decisions
+
+### Key Features
+
+- **Secure Authentication**: JWT-based authentication system for product owners
+- **Product Management**: Create, update, and manage product concepts with descriptions and images
+- **Checklink Generation**: Automatic generation of unique, trackable URLs for each product
+- **Feedback Collection**: Public interfaces for users to submit ratings, comments, and feedback
+- **Multi-Platform Support**: API-first architecture supporting web, mobile, and future integrations
+- **Scalable Architecture**: Modular design supporting local development and cloud deployment
 
 ## Project Structure
+
 ```
 IdeaCheck/
-├── app.py                 # Main Flask application
-├── models.py              # Database models (Product, UserResponse)
-├── config.py              # Configuration for local/Azure environments
-├── azure_storage.py       # Azure Blob Storage integration
-├── startup.py             # Azure App Service startup script
-├── requirements.txt       # Python dependencies
-├── .env                   # Environment variables (local)
-├── .env.example           # Environment template
-├── static/                # Static files (CSS, JS, uploads)
-├── templates/             # HTML templates
-│   ├── admin/             # Admin interface templates
-│   └── public/            # Public-facing templates
-└── migrations/            # Database migration files
+├── src/
+│   ├── server/              # FastAPI Backend Server
+│   │   ├── api/             # REST API endpoints and business logic
+│   │   ├── database/        # Database models and connection management
+│   │   └── README.md        # Server-specific documentation
+│   └── client/              # Client Applications
+│       ├── web/             # React Web Application (future)
+│       └── mobile/          # React Native Mobile App (future)
+├── requirements.txt         # Project overview (see server/requirements.txt for actual deps)
+└── README.md               # This file
 ```
 
-## Quick Start (Local Development)
+### Technology Stack
 
-1. **Create and Activate Virtual Environment**
+**Backend (Server):**
+- **FastAPI** - Modern Python web framework
+- **SQLAlchemy** - Database ORM with SQLite/PostgreSQL support
+- **JWT Authentication** - Secure token-based authentication
+- **Pydantic** - Data validation and serialization
+
+**Frontend (Planned):**
+- **React** - Web application framework
+- **React Native** - Mobile application framework
+
+**Database:**
+- **SQLite** (development) / **Azure SQL** (production)
+
+## Getting Started
+
+### Prerequisites
+- Python 3.11+
+- Virtual environment support
+
+### Quick Start
+
+1. **Clone and setup**:
    ```bash
-   # Create virtual environment
+   git clone <repository-url>
+   cd IdeaCheck
    python -m venv .venv
-   
-   # Activate virtual environment
-   # On Windows (PowerShell/Command Prompt):
-   .venv\Scripts\activate
-   
-   # On macOS/Linux:
-   source .venv/bin/activate
+   .venv\Scripts\activate  # Windows
    ```
 
-2. **Install Dependencies**
+2. **Start the API server**:
    ```bash
+   cd src/server
    pip install -r requirements.txt
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
    ```
 
-3. **Set Up Environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
+3. **Access the application**:
+   - API Documentation: http://localhost:8000/docs
+   - Health Check: http://localhost:8000/health
 
-4. **Run the Application**
-   ```bash
-   python app.py
-   ```
+### Development
 
-4. **Access the Application**
-   - Main app: http://localhost:5000
-   - Admin dashboard: http://localhost:5000/admin (default: admin/secure-password-123)
+Each component has its own documentation:
+- **Server API**: See `src/server/README.md` for detailed backend setup and API documentation
+- **Web Client**: See `src/client/web/README.md` (coming soon)
+- **Mobile Client**: See `src/client/mobile/README.md` (coming soon)
 
-## Azure Deployment
+## Deployment
 
-This application is designed to work with Azure resources:
+The application is designed for flexible deployment:
+- **Development**: Local SQLite database with FastAPI dev server
+- **Production**: Azure App Service with Azure SQL Database and Blob Storage
+- **Container**: Docker support for containerized deployments
 
-- **Azure App Service**: Host the web application
-- **Azure SQL Database**: Store products and responses
-- **Azure Blob Storage**: Store product poster images
-- **Azure Key Vault**: Manage secrets and connection strings
+## Contributing
 
-Set the following environment variables in Azure App Service:
-- `FLASK_ENV=production`
-- `AZURE_SQL_CONNECTION_STRING`
-- `AZURE_STORAGE_CONNECTION_STRING`
-- `SECRET_KEY`
-- `ADMIN_USERNAME`
-- `ADMIN_PASSWORD`
-
-## Usage
-
-### Admin Workflow
-1. Login to `/admin` with admin credentials
-2. Create new products with name, description, and poster image
-3. Copy the generated checklink URL for distribution
-4. Monitor responses in the admin dashboard
-
-### User Workflow
-1. User clicks on checklink URL
-2. User fills out simple email collection form
-3. Response is automatically linked to the specific product
-
-## Architecture
-
-The application follows a simple Flask architecture:
-- **Models**: SQLAlchemy models for database operations
-- **Views**: Flask routes for handling requests
-- **Templates**: Jinja2 templates for rendering HTML
-- **Storage**: Flexible storage system (local files or Azure Blob Storage)
-- **Configuration**: Environment-based configuration for different deployments
+1. Follow the modular architecture (server/client separation)
+2. API-first development approach
+3. Comprehensive testing for all components
+4. Documentation updates for any architectural changes
